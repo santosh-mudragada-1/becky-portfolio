@@ -1,0 +1,470 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* -------------------------------------------------------------------------- */
+/*  Theming model                                                              */
+/*  Two independent axes:                                                       */
+/*    1. Light / Dark  → `.dark` class on <html>  (managed by next-themes)      */
+/*    2. Color theme   → [data-theme] on <html>   (managed by ColorTheme ctx)   */
+/*  Mango is the default and lives in :root / .dark. The other four themes      */
+/*  only re-point the BRAND tokens; neutrals stay warm and shared for a         */
+/*  cohesive, handcrafted feel.                                                 */
+/* -------------------------------------------------------------------------- */
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================================================== */
+/*  NEUTRALS + DEFAULT (MANGO) BRAND — light                                    */
+/*  Warm, papery, approachable. OKLCH for smooth, wide-gamut ramps.            */
+/* ========================================================================== */
+:root {
+  --radius: 1rem; /* rounded, friendly — everything derives from this */
+
+  /* Surfaces & text (warm cream / ink) */
+  --background: oklch(0.98 0.008 85);
+  --foreground: oklch(0.26 0.02 60);
+  --card: oklch(0.995 0.006 85);
+  --card-foreground: oklch(0.26 0.02 60);
+  --popover: oklch(0.995 0.006 85);
+  --popover-foreground: oklch(0.26 0.02 60);
+  --secondary: oklch(0.95 0.012 85);
+  --secondary-foreground: oklch(0.3 0.02 60);
+  --muted: oklch(0.955 0.01 85);
+  --muted-foreground: oklch(0.52 0.02 60);
+  --border: oklch(0.9 0.014 80);
+  --input: oklch(0.9 0.014 80);
+
+  /* Status (shared across themes) */
+  --destructive: oklch(0.62 0.21 25);
+  --destructive-foreground: oklch(0.99 0.01 85);
+  --success: oklch(0.66 0.15 150);
+  --success-foreground: oklch(0.99 0.01 85);
+  --warning: oklch(0.83 0.15 85);
+  --warning-foreground: oklch(0.28 0.05 65);
+  --info: oklch(0.64 0.15 235);
+  --info-foreground: oklch(0.99 0.01 85);
+
+  /* Data-viz — fixed friendly categorical ramp (readable in every theme) */
+  --chart-1: oklch(0.8 0.16 80);
+  --chart-2: oklch(0.62 0.16 240);
+  --chart-3: oklch(0.68 0.15 150);
+  --chart-4: oklch(0.6 0.2 300);
+  --chart-5: oklch(0.68 0.17 30);
+
+  /* Elevation — soft, warm, layered (never harsh) */
+  --shadow-color: 40 35% 45%;
+  --shadow-2xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
+  --shadow-xs: 0 1px 3px 0 hsl(var(--shadow-color) / 0.08);
+  --shadow-sm: 0 2px 8px -2px hsl(var(--shadow-color) / 0.1);
+  --shadow-md: 0 8px 24px -6px hsl(var(--shadow-color) / 0.14);
+  --shadow-lg: 0 16px 40px -12px hsl(var(--shadow-color) / 0.18);
+  --shadow-xl: 0 28px 60px -16px hsl(var(--shadow-color) / 0.22);
+
+  /* Motion easings (theme-agnostic; mirrored in src/config/motion.ts) */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Brand: MANGO (default) --- */
+  --primary: oklch(0.8 0.16 80);
+  --primary-foreground: oklch(0.27 0.04 62);
+  --accent: oklch(0.93 0.06 88);
+  --accent-foreground: oklch(0.34 0.06 66);
+  --ring: oklch(0.8 0.16 80);
+  --highlight: oklch(0.86 0.15 92);
+  --highlight-foreground: oklch(0.3 0.05 66);
+  --brand-soft: oklch(0.92 0.08 92);
+  --brand-soft-foreground: oklch(0.36 0.06 66);
+}
+
+/* ========================================================================== */
+/*  NEUTRALS + DEFAULT (MANGO) BRAND — dark                                     */
+/*  Warm charcoal, NOT enterprise-black. Stays friendly.                       */
+/* ========================================================================== */
+.dark {
+  --background: oklch(0.23 0.015 65);
+  --foreground: oklch(0.95 0.01 85);
+  --card: oklch(0.27 0.018 62);
+  --card-foreground: oklch(0.95 0.01 85);
+  --popover: oklch(0.27 0.018 62);
+  --popover-foreground: oklch(0.95 0.01 85);
+  --secondary: oklch(0.31 0.02 60);
+  --secondary-foreground: oklch(0.95 0.01 85);
+  --muted: oklch(0.31 0.02 60);
+  --muted-foreground: oklch(0.72 0.02 70);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+
+  --destructive: oklch(0.7 0.19 25);
+  --destructive-foreground: oklch(0.2 0.03 60);
+  --success: oklch(0.72 0.15 152);
+  --success-foreground: oklch(0.2 0.03 60);
+  --warning: oklch(0.83 0.15 85);
+  --warning-foreground: oklch(0.2 0.04 65);
+  --info: oklch(0.72 0.14 235);
+  --info-foreground: oklch(0.2 0.03 60);
+
+  --chart-1: oklch(0.82 0.16 82);
+  --chart-2: oklch(0.7 0.15 235);
+  --chart-3: oklch(0.74 0.15 150);
+  --chart-4: oklch(0.7 0.18 300);
+  --chart-5: oklch(0.74 0.16 32);
+
+  --shadow-color: 40 50% 3%;
+  --shadow-2xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.3);
+  --shadow-xs: 0 1px 3px 0 hsl(var(--shadow-color) / 0.4);
+  --shadow-sm: 0 2px 8px -2px hsl(var(--shadow-color) / 0.45);
+  --shadow-md: 0 8px 24px -6px hsl(var(--shadow-color) / 0.5);
+  --shadow-lg: 0 16px 40px -12px hsl(var(--shadow-color) / 0.6);
+  --shadow-xl: 0 28px 60px -16px hsl(var(--shadow-color) / 0.7);
+
+  --primary: oklch(0.82 0.16 82);
+  --primary-foreground: oklch(0.24 0.04 60);
+  --accent: oklch(0.42 0.06 70);
+  --accent-foreground: oklch(0.92 0.06 88);
+  --ring: oklch(0.82 0.16 82);
+  --highlight: oklch(0.8 0.14 88);
+  --highlight-foreground: oklch(0.22 0.04 66);
+  --brand-soft: oklch(0.4 0.07 78);
+  --brand-soft-foreground: oklch(0.94 0.05 88);
+}
+
+/* ========================================================================== */
+/*  COLOR THEMES — brand-only overrides                                         */
+/*  [data-theme] = light values · .dark[data-theme] = dark values.             */
+/* ========================================================================== */
+
+/* 🟠 Coffee */
+[data-theme="coffee"] {
+  --primary: oklch(0.55 0.09 55);
+  --primary-foreground: oklch(0.98 0.01 85);
+  --accent: oklch(0.9 0.045 62);
+  --accent-foreground: oklch(0.36 0.06 55);
+  --ring: oklch(0.55 0.09 55);
+  --highlight: oklch(0.74 0.11 62);
+  --highlight-foreground: oklch(0.28 0.04 55);
+  --brand-soft: oklch(0.89 0.05 62);
+  --brand-soft-foreground: oklch(0.36 0.06 55);
+}
+.dark[data-theme="coffee"] {
+  --primary: oklch(0.7 0.1 58);
+  --primary-foreground: oklch(0.2 0.03 55);
+  --accent: oklch(0.4 0.05 55);
+  --accent-foreground: oklch(0.92 0.04 70);
+  --ring: oklch(0.7 0.1 58);
+  --highlight: oklch(0.64 0.09 58);
+  --highlight-foreground: oklch(0.95 0.02 70);
+  --brand-soft: oklch(0.38 0.05 55);
+  --brand-soft-foreground: oklch(0.92 0.04 70);
+}
+
+/* 🟣 Grape */
+[data-theme="grape"] {
+  --primary: oklch(0.55 0.2 300);
+  --primary-foreground: oklch(0.99 0.01 300);
+  --accent: oklch(0.93 0.06 302);
+  --accent-foreground: oklch(0.4 0.12 300);
+  --ring: oklch(0.55 0.2 300);
+  --highlight: oklch(0.72 0.18 322);
+  --highlight-foreground: oklch(0.99 0.01 322);
+  --brand-soft: oklch(0.91 0.07 305);
+  --brand-soft-foreground: oklch(0.42 0.12 300);
+}
+.dark[data-theme="grape"] {
+  --primary: oklch(0.72 0.18 300);
+  --primary-foreground: oklch(0.18 0.03 300);
+  --accent: oklch(0.42 0.1 300);
+  --accent-foreground: oklch(0.93 0.05 305);
+  --ring: oklch(0.72 0.18 300);
+  --highlight: oklch(0.7 0.16 322);
+  --highlight-foreground: oklch(0.16 0.03 322);
+  --brand-soft: oklch(0.4 0.09 300);
+  --brand-soft-foreground: oklch(0.93 0.05 305);
+}
+
+/* 🔵 Ocean */
+[data-theme="ocean"] {
+  --primary: oklch(0.6 0.16 240);
+  --primary-foreground: oklch(0.99 0.01 240);
+  --accent: oklch(0.93 0.05 235);
+  --accent-foreground: oklch(0.4 0.1 240);
+  --ring: oklch(0.6 0.16 240);
+  --highlight: oklch(0.74 0.14 220);
+  --highlight-foreground: oklch(0.99 0.01 220);
+  --brand-soft: oklch(0.91 0.06 232);
+  --brand-soft-foreground: oklch(0.42 0.1 240);
+}
+.dark[data-theme="ocean"] {
+  --primary: oklch(0.73 0.15 235);
+  --primary-foreground: oklch(0.16 0.03 240);
+  --accent: oklch(0.42 0.09 240);
+  --accent-foreground: oklch(0.93 0.05 232);
+  --ring: oklch(0.73 0.15 235);
+  --highlight: oklch(0.72 0.13 220);
+  --highlight-foreground: oklch(0.15 0.03 220);
+  --brand-soft: oklch(0.38 0.08 240);
+  --brand-soft-foreground: oklch(0.93 0.05 232);
+}
+
+/* 🟢 Matcha */
+[data-theme="matcha"] {
+  --primary: oklch(0.68 0.15 150);
+  --primary-foreground: oklch(0.22 0.04 150);
+  --accent: oklch(0.93 0.06 148);
+  --accent-foreground: oklch(0.34 0.09 150);
+  --ring: oklch(0.68 0.15 150);
+  --highlight: oklch(0.81 0.14 145);
+  --highlight-foreground: oklch(0.26 0.05 150);
+  --brand-soft: oklch(0.91 0.07 150);
+  --brand-soft-foreground: oklch(0.34 0.09 150);
+}
+.dark[data-theme="matcha"] {
+  --primary: oklch(0.75 0.15 150);
+  --primary-foreground: oklch(0.18 0.03 150);
+  --accent: oklch(0.42 0.08 150);
+  --accent-foreground: oklch(0.93 0.05 148);
+  --ring: oklch(0.75 0.15 150);
+  --highlight: oklch(0.73 0.13 145);
+  --highlight-foreground: oklch(0.16 0.03 150);
+  --brand-soft: oklch(0.38 0.07 150);
+  --brand-soft-foreground: oklch(0.93 0.05 148);
+}
+
+/* ========================================================================== */
+/*  @theme — expose semantic tokens as Tailwind utilities                       */
+/*  `inline` keeps utilities pointing at the live var() so they react to both  */
+/*  theme axes at runtime.                                                      */
+/* ========================================================================== */
+@theme inline {
+  /* Fonts (CSS vars injected by next/font in src/lib/fonts.ts) */
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-hanken), sans-serif;
+  --font-hand: var(--font-caveat), ui-serif, cursive;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-foreground: var(--brand-soft-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Radius (rounded scale) */
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 20px);
+
+  /* Shadows */
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  /* Easings → `ease-*` utilities */
+  --ease-fluid: var(--ease-fluid);
+  --ease-out-expo: var(--ease-out-expo);
+  --ease-in-out-quart: var(--ease-in-out-quart);
+  --ease-bounce: var(--ease-bounce);
+
+  --breakpoint-3xl: 120rem;
+
+  /* Playful, reusable keyframe animations */
+  --animate-fade-up: fade-up 0.7s var(--ease-out-expo) both;
+  --animate-scale-in: scale-in 0.5s var(--ease-out-expo) both;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pop: pop 0.3s var(--ease-bounce);
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.9);
+    }
+    60% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* ========================================================================== */
+/*  Base layer                                                                 */
+/* ========================================================================== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Lenis owns scrolling. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-display font-semibold tracking-tight text-balance;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  /* Respect reduced motion everywhere. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ========================================================================== */
+/*  Utilities                                                                  */
+/* ========================================================================== */
+@utility text-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--primary),
+    color-mix(in oklch, var(--primary), var(--highlight) 60%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Responsive page gutter used by <Container>. */
+@utility container-px {
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
+  }
+}
+
+/* Unified label style — the one "eyebrow" treatment used site-wide. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Handwritten margin annotation — the PM's scribbled aside. Use sparingly. */
+@utility annotation {
+  font-family: var(--font-hand);
+  color: var(--muted-foreground);
+  line-height: 1.1;
+}
