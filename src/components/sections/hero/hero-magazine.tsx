@@ -59,16 +59,16 @@ export function HeroMagazine() {
               AND ships
             </div>
             <Image
-              src="/images/becky-jacket.png"
+              src="/images/becky-reading.png"
               alt="Becky, this month's cover star"
-              width={403}
-              height={479}
+              width={400}
+              height={498}
               priority
               unoptimized
               className="h-auto w-full drop-shadow-2xl transition-transform duration-500 group-hover:-rotate-2 group-hover:scale-[1.03]"
             />
             <figcaption className="mt-2 text-center font-mono text-[11px] text-muted-foreground">
-              cover star · dressed to ship
+              cover star · reads maps for fun
             </figcaption>
           </figure>
         </div>

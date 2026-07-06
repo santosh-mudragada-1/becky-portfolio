@@ -5,8 +5,8 @@ import {
   type Version,
 } from "@/components/common/version-control";
 import {
+  AboutDay,
   AboutEditorial,
-  AboutFaq,
   AboutNotes,
   AboutSpec,
   AboutStatement,
@@ -85,7 +85,7 @@ export default function HomePage() {
 
   const about: Version[] = [
     { id: "statement", name: "Statement + Portrait", node: <AboutStatement /> },
-    { id: "faq", name: "FAQ", node: <AboutFaq /> },
+    { id: "day", name: "Day in the Life", node: <AboutDay /> },
     { id: "spec", name: "Spec Sheet", node: <AboutSpec /> },
     { id: "notes", name: "Sticky Notes", node: <AboutNotes /> },
     { id: "editorial", name: "Editorial", node: <AboutEditorial /> },

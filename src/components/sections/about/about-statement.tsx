@@ -35,17 +35,17 @@ export function AboutStatement() {
             </ul>
           </div>
 
-          <figure className="group relative mx-auto w-full max-w-[18rem] rotate-2">
+          <figure className="group relative mx-auto w-full max-w-[16rem] rotate-2">
             <Image
-              src="/images/becky-jacket.png"
+              src="/images/becky-reading.png"
               alt="Banshika 'Becky' Kejriwal"
-              width={403}
-              height={479}
+              width={400}
+              height={498}
               unoptimized
               className="h-auto w-full drop-shadow-2xl transition-transform duration-500 group-hover:rotate-0 group-hover:scale-[1.02]"
             />
             <figcaption className="mt-2 text-center font-mono text-[11px] text-muted-foreground">
-              yes, the jacket is load-bearing
+              doing “research” (reading the room, and a map)
             </figcaption>
           </figure>
         </div>
