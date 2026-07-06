@@ -3,17 +3,16 @@ import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import type { SocialLink } from "@/types";
 
 /**
- * Global site configuration — single source of truth for metadata and contact
- * surfaces. Fill in real values before launch. (Nav is intentionally absent:
- * the navigation model — spatial "desk" workspace vs. routes — is still an open
- * decision, see docs/sitemap.md.)
+ * Global site configuration — single source of truth for identity, metadata
+ * and contact surfaces.
  */
 export const siteConfig = {
-  name: "Your Name",
-  role: "Product Manager & Marketer",
-  title: "Your Name — Product Manager & Marketer",
+  name: "Banshika Kejriwal",
+  nickname: "Becky",
+  role: "Product Manager",
+  title: "Banshika Kejriwal — Product Manager (call me Becky)",
   description:
-    "An interactive product experience — explore the workspace of a product manager and marketer who ships user-loved products and campaigns that move metrics.",
+    "Product Manager with 3+ years across SaaS, AI and consumer products. Ships fast, naps faster. Quirky, sarcastic, occasionally serious.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ogImage: "/og.png",
   locale: "en_US",
@@ -21,20 +20,27 @@ export const siteConfig = {
   resumeUrl: "/resume.pdf",
   keywords: [
     "Product Manager",
-    "Product Marketing",
-    "Growth",
-    "Go-to-Market",
-    "Portfolio",
+    "SaaS",
+    "AI",
+    "Consumer products",
+    "Product Portfolio",
   ],
-  creator: "@yourhandle",
+  creator: "@becky",
 } as const;
+
+/** Primary navigation. */
+export const mainNav = [
+  { title: "Projects", href: "#projects" },
+  { title: "About", href: "#about" },
+  { title: "Contact", href: "#contact" },
+] as const;
 
 /** Social / contact links. */
 export const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://linkedin.com/in/", icon: Linkedin },
   { label: "GitHub", href: "https://github.com/", icon: Github },
   { label: "X / Twitter", href: "https://x.com/", icon: Twitter },
-  { label: "Email", href: `mailto:${siteConfig.email}`, icon: Mail },
+  { label: "Email", href: `mailto:hello@example.com`, icon: Mail },
 ];
 
 export type SiteConfig = typeof siteConfig;

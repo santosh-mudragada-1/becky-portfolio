@@ -14,8 +14,8 @@ export interface CTA {
   external?: boolean;
 }
 
-/** Project categories from docs/sitemap.md. */
-export type ProjectCategory = "Enterprise" | "AI" | "Consumer";
+/** Product areas Becky shipped across at The Matrix Labs. */
+export type ProjectCategory = "SaaS" | "GenAI" | "Consumer";
 
 export interface ProjectMetric {
   label: string;
